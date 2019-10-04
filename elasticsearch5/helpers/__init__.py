@@ -381,17 +381,19 @@ def scan(client, query=None, scroll='5m', raise_on_error=True,
             for hit in resp['hits']['hits']:
                 yield hit
 
-            # check if we have any errrors
-            if resp["_shards"]["successful"] < resp["_shards"]["total"]:
+            # check if we have any errors
+            if (resp["_shards"]["successful"] + resp["_shards"]["skipped"]) < resp["_shards"]["total"]:
                 logger.warning(
-                    'Scroll request has only succeeded on %d shards out of %d.',
-                    resp['_shards']['successful'], resp['_shards']['total']
+                    "Scroll request has only succeeded on %d (+%d skipped) shards out of %d.",
+                    resp["_shards"]["successful"],
+                    resp["_shards"]["skipped"],
+                    resp["_shards"]["total"],
                 )
                 if raise_on_error:
                     raise ScanError(
                         scroll_id,
-                        'Scroll request has only succeeded on %d shards out of %d.' %
-                            (resp['_shards']['successful'], resp['_shards']['total'])
+                        "Scroll request has only succeeded on %d (+%d skiped) shards out of %d."
+                        % (resp["_shards"]["successful"], resp["_shards"]["skipped"], resp["_shards"]["total"]),
                     )
 
             scroll_id = resp.get('_scroll_id')
