@@ -35,3 +35,26 @@ class AsyncConnection(Connection):
 class AIOHttpConnection(AsyncConnection):
     session: Optional[aiohttp.ClientSession]
     ssl_assert_fingerprint: Optional[str]
+    def __init__(
+        self,
+        host: str = ...,
+        port: Optional[int] = ...,
+        http_auth: Optional[Any] = ...,
+        use_ssl: bool = ...,
+        verify_certs: bool = ...,
+        ssl_show_warn: bool = ...,
+        ca_certs: Optional[Any] = ...,
+        client_cert: Optional[Any] = ...,
+        client_key: Optional[Any] = ...,
+        ssl_version: Optional[Any] = ...,
+        ssl_assert_fingerprint: Optional[Any] = ...,
+        maxsize: int = ...,
+        headers: Optional[Mapping[str, str]] = ...,
+        ssl_context: Optional[Any] = ...,
+        http_compress: Optional[bool] = ...,
+        cloud_id: Optional[str] = ...,
+        api_key: Optional[Any] = ...,
+        opaque_id: Optional[str] = ...,
+        loop: Any = ...,
+        **kwargs: Any,
+    ) -> None: ...
